@@ -1,4 +1,5 @@
 const SEND_EMAIL_WHEN_GET = false;
+/**Note: the family emails are hidden*/
 const FAMILY_EMAILS = String([]);
 function doGet(e) {
   Logger.log("get request");
