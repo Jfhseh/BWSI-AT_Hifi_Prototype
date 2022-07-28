@@ -3,9 +3,12 @@
  * **when** the user starts using the device.
 */
 const SEND_EMAIL_WHEN_GET = false;
-/**Note: the family emails are hidden*/
+/**
+ * Note: the family emails are hidden
+ */
 const FAMILY_EMAILS = String([]);
-/**This function will run **when** the server receives a get request
+/**
+ * This function will run **when** the server receives a get request
  * @returns {JSON} a json file that stores the schedule and file ids for the reminders
  */
 function doGet(e) {
@@ -14,7 +17,8 @@ function doGet(e) {
     if (SEND_EMAIL_WHEN_GET) emailToFamily();
   return ContentService.createTextOutput(ret);
 }
-/**get the current date stored in the format MM/DD 
+/**
+ * get the current date stored in the format MM/DD 
  * @returns the current date stored in the format MM/DD,
  * where MM is in the range of [1,12] instead of [0,11]
 */
@@ -23,7 +27,8 @@ function getDate() {
   var dateString = (1+date.getMonth()) + "/"+ date.getDate();
   return dateString;
 }
-/**Splits the name of a reminder
+/**
+ * Splits the name of a reminder
  * @param {string} str a folder's name
  * @returns {string[]} that provides the time and the name of the reminder
  */
@@ -33,7 +38,8 @@ function splitTitle(str) {
   var reminderName = str.substring(divider+1);
   return [time, reminderName];
 }
-/**gets today's schedule and reminders from google drive
+/**
+ * gets today's schedule and reminders from google drive
  * @returns {JSON} a json file that stores the schedule and file ids for the reminders
 */
 function getTodaysReminder() {
@@ -87,7 +93,8 @@ function getTodaysReminder() {
     }
   }
 }
-/** send a email to the user's family
+/** 
+ * send a email to the user's family
  *  @note this feature can be turned on using the constant **SEND_EMAIL_WHEN_GET**
 */
 function emailToFamily() {
@@ -99,7 +106,8 @@ function emailToFamily() {
     cc: FAMILY_EMAILS
 });
 }
-/**Contact the user's family when the user has not use the device before a certain time
+/**
+ * Contact the user's family when the user has not use the device before a certain time
  * @note this function can be automatically called by Appscript trigger
 */
 function emailFamily_noConnectionToUser() {
@@ -115,7 +123,8 @@ function emailFamily_noConnectionToUser() {
     cc: FAMILY_EMAILS
 });
 }
-/**@deprecated for testing only
+/**
+ * @deprecated for testing only
  */
 function myFunction() {
   // Log the name of every file in the user's Drive.
