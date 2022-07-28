@@ -82,7 +82,7 @@ class GoogleDriveManager:
 		print("GoogleDriveManager: getting schedule");
 		currentFolder = f'./data/{month}-{date}/';
 		#vv need to be changed if appscript version changed
-		x = requests.get('https://script.google.com/macros/s/AKfycbwKfXO-Z4knGNjHHP0FeXnzb30RQinub5WTka9OKmpAB3sZC0AVVzwd8MnGoENjetp7oQ/exec');
+		x = requests.get('{INSERT LINK TO APPSCRIPT SERVER}');
 		print(x.status_code);
 		print(x.text);
 		#^^automatically close the file 
