@@ -1,24 +1,41 @@
+/**
+ * send a email to the user's family members
+ * **when** the user starts using the device.
+*/
 const SEND_EMAIL_WHEN_GET = false;
 /**Note: the family emails are hidden*/
 const FAMILY_EMAILS = String([]);
+/**This function will run **when** the server receives a get request
+ * @returns {JSON} a json file that stores the schedule and file ids for the reminders
+ */
 function doGet(e) {
   Logger.log("get request");
   var ret = JSON.stringify(getTodaysReminder());
     if (SEND_EMAIL_WHEN_GET) emailToFamily();
   return ContentService.createTextOutput(ret);
 }
-//private
+/**get the current date stored in the format MM/DD 
+ * @returns the current date stored in the format MM/DD,
+ * where MM is in the range of [1,12] instead of [0,11]
+*/
 function getDate() {
   const date = new Date();//month is [0..11]
   var dateString = (1+date.getMonth()) + "/"+ date.getDate();
   return dateString;
 }
+/**Splits the name of a reminder
+ * @param {string} str a folder's name
+ * @returns {string[]} that provides the time and the name of the reminder
+ */
 function splitTitle(str) {
   var divider = str.indexOf(" ");
   var time =  str.substring(0, divider);
   var reminderName = str.substring(divider+1);
   return [time, reminderName];
 }
+/**gets today's schedule and reminders from google drive
+ * @returns {JSON} a json file that stores the schedule and file ids for the reminders
+*/
 function getTodaysReminder() {
   var returnV = {};
   var rootFolder = DriveApp.getFoldersByName("ATReminders").next();
@@ -70,6 +87,9 @@ function getTodaysReminder() {
     }
   }
 }
+/** send a email to the user's family
+ *  @note this feature can be turned on using the constant **SEND_EMAIL_WHEN_GET**
+*/
 function emailToFamily() {
   //TODO: add CCs
   var folderURL = DriveApp.getFoldersByName("ATReminders").next().getUrl();
@@ -79,6 +99,9 @@ function emailToFamily() {
     cc: FAMILY_EMAILS
 });
 }
+/**Contact the user's family when the user has not use the device before a certain time
+ * @note this function can be automatically called by Appscript trigger
+*/
 function emailFamily_noConnectionToUser() {
   PropertiesService.getScriptProperties().getProperty('usedToday');
   //TODO: add CCs
@@ -92,7 +115,8 @@ function emailFamily_noConnectionToUser() {
     cc: FAMILY_EMAILS
 });
 }
-
+/**@deprecated for testing only
+ */
 function myFunction() {
   // Log the name of every file in the user's Drive.
   var rootFolder = DriveApp.getFoldersByName("ATReminders").next();
