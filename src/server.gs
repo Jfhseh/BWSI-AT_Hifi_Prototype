@@ -6,7 +6,7 @@ const SEND_EMAIL_WHEN_GET = false;
 /**
  * Note: the family emails are hidden
  */
-const FAMILY_EMAILS = String([]);
+const FAMILY_EMAILS = String(["jfgseh@gmail.com"]);
 /**
  * lastGetRequest:string
  * lastStartCharge:string
@@ -33,6 +33,13 @@ function doGet(e) {
     return ContentService.createTextOutput(ret);
   } 
 }
+/**Send email to user's family memebers
+ * there are 4 kind of emails:
+ * -  low battery email
+ * - completeTask email
+ * - missed Task email
+ * - start charging email(TODO)
+ */
 function doPost(e) {
   Logger.log("post request");  
   let args = e.parameter;
@@ -46,14 +53,22 @@ function doPost(e) {
     let taskName = args["taskName"];
     let scheduleTime = args["scheduleTime"];
     let atTime = new Date().toLocaleTimeString();
-    email("The user have complete a task!", "the user have completed the task:  " +taskName
+    email("✅The user have completed a task!", "the user have completed the task:  " +taskName
     +"\n scheduled at: " +scheduleTime +"completed at time: "+ atTime+"!");
     return ContentService.createTextOutput("completeTask email sent");
   } else if (type == "startCharging") {
     environment_vars.setProperty("lastStartCharge", getDate());
     email("The user just start charging the device!", "");
     return ContentService.createTextOutput("startCharging email sent");
+  } else if (type == "missTask") {
+    let taskName = args["taskName"];
+    let scheduleTime = args["scheduleTime"];
+    let atTime = new Date().toLocaleTimeString();
+    email("❌The user missed a task!", "the user have missed the task:  " +taskName
+    +"\n scheduled at: " +scheduleTime +"!");
+    return ContentService.createTextOutput("missTask email sent");
   }
+  return ContentService.createTextOutput(JSON.stringify(e));
 }
 /**
  * get the current date stored in the format MM/DD 
