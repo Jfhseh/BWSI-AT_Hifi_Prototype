@@ -1,7 +1,7 @@
 import requests;
 def noBattery():
 		"""
-		sends a post request to the server, telling it that this device has less than 1% of battery
+		sends a post request to the server, telling it that this device has less than 1% of battery.
 		"""
 		params = {
 			"type":"lowBattery",
