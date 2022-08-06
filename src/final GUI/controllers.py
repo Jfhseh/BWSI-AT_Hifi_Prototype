@@ -46,7 +46,7 @@ class GoogleDriveManager:
 		print("GoogleDriveManager: getting schedule");
 		# currentFolder = f'./data/{month}-{date}/';
 		#vv need to be changed if appscript version changed
-		x = requests.get('https://script.google.com/macros/s/AKfycbwTPcKwdGHbR4iwxnD_OQ6l6a7v_9f8F9Q0VvPpTN0NLHwln8kGU332h9gp6Wr_Nup3_Q/exec');
+		x = requests.get('{insert webapp url here}');
 		print(x.status_code);
 		print(x.text);
 		#^^automatically close the file 
@@ -77,7 +77,7 @@ class GoogleDriveManager:
 			"taskName":task.text,
 			"scheduleTime":task.time
 		};
-		x = requests.post("https://script.google.com/macros/s/AKfycbwTPcKwdGHbR4iwxnD_OQ6l6a7v_9f8F9Q0VvPpTN0NLHwln8kGU332h9gp6Wr_Nup3_Q/exec",params=params);
+		x = requests.post('{insert webapp url here}',params=params);
 		print(x.text);
 		print(x.status_code);
 	@staticmethod
@@ -93,7 +93,7 @@ class GoogleDriveManager:
 			"taskName":task.text,
 			"scheduleTime":task.time
 		};
-		x = requests.post("https://script.google.com/macros/s/AKfycbwTPcKwdGHbR4iwxnD_OQ6l6a7v_9f8F9Q0VvPpTN0NLHwln8kGU332h9gp6Wr_Nup3_Q/exec",params=params);
+		x = requests.post('{insert webapp url here}',params=params);
 		print(x.text);
 		print(x.status_code);
 class Speaker:
